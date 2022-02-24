@@ -1,0 +1,35 @@
+@model Wedding
+
+
+<div class="card text-center">
+    <div class="card-header">
+        <h1>@Model.WedderOne and @Model.WedderTwo's Wedding</h1>
+        <small>Created by: @Model.Author.FullName()</small>
+    </div>
+    <div class="card-body">
+    <h3 class="card-title">Location: @Model.WeddingAddress</h3>
+    <h5>Date: @Model.WeddingDate.ToString("MM/dd/yyyy")</h5>
+    <p class="card-text">Guests:
+        
+        @foreach (Attendance rsvp in  Model.WeddingAttendees)
+        {
+            <div>
+                <small>@rsvp.User.FullName()</small>
+            </div>
+        }
+        
+    </p>
+
+    </div>
+    <div class="card-footer text-muted">
+        Created :@Model.CreatedAt 
+        <div>
+            Updated: @Model.UpdatedAt
+        </div>
+    </div>
+</div>
+
+    <a href="/Dashboard" class="btn btn-primary">Dashboard</a>
+    <form asp-controller="Home" asp-action="Logout">
+        <button class="btn btn-warning">Log Out</button>
+    </form>

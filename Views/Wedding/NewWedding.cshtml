@@ -1,0 +1,30 @@
+<h1>Plan your Wedding</h1>
+@model Wedding
+<form asp-action="Create" asp-controller="Wedding" method="POST">
+    <div class="form-group">
+        <label asp-for="WedderOne"></label>
+        <input asp-for="WedderOne" class="form-control" >
+        <span asp-validation-for="WedderOne" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WedderTwo"></label>
+        <input type="text" asp-for="WedderTwo" class="form-control" >
+        <span asp-validation-for="WedderTwo"class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WeddingDate"></label>
+        <input type="date" asp-for="WeddingDate" id="weddingDate" class="form-control" >
+        <span asp-validation-for="WeddingDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WeddingAddress"></label>
+        <input type="text" asp-for="WeddingAddress"class="form-control" >
+        <span asp-validation-for="WeddingAddress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Create</button>
+    </div>
+</form>
+<form asp-controller="Home" asp-action="Logout">
+    <button class="btn btn-warning">Log Out</button>
+</form>

@@ -1,0 +1,54 @@
+@model Wedding
+<div class="container">
+    <h1 class="text-center">All Weddings</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Wedding</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Guest</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (Wedding wedding in ViewBag.Weddings)
+                    {
+                        bool existingRSVP = wedding.WeddingAttendees
+                        .Any(rsvp => rsvp.UserId == Context.Session.GetInt32("UserId"));
+                        <tr>
+                            <td scope="row"><a asp-controller="Wedding" asp-action="Wedding" asp-route-weddingId="@wedding.WeddingId">@wedding.WedderOne & @wedding.WedderTwo</a></td>
+                            <td scope="row">@wedding.WeddingDate.ToString("MM/dd/yyyy")</td>
+                            <td scope="row">@wedding.WeddingAttendees.Count</td>
+                            <td scope="row">
+                                @if(Context.Session.GetInt32("UserId") != wedding.UserId)
+                                {
+                                    <form asp-controller="Wedding" asp-action="RSVP" asp-route-weddingId="@wedding.WeddingId">
+                                        <button class="btn btn-info btn-sm">
+                                        @if (existingRSVP)
+                                        {
+                                            <span>Un-RSVP</span>
+                                        }
+                                        else
+                                        {
+                                            <span>RSVP</span>
+                                        }
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp asp-controller="Wedding" asp-action="DeleteWedding" asp-route-weddingId="@wedding.WeddingId">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    <a href="NewWedding" class="btn btn-primary">Add Wedding</a>
+    <form asp-controller="Home" asp-action="Logout">
+        <button class="btn btn-warning">Log Out</button>
+    </form>
+</div>
+
